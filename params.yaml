@@ -1,0 +1,23 @@
+Data_Preparation:
+  test_size: 0.25
+  random_state: 42
+
+Train:
+  CatBoost:
+    iterations: 654
+    depth: 10
+    learning_rate: 0.025713059915926872
+    l2_leaf_reg: 1.656249723024617
+    random_strength: 0.1316191376279483
+    bagging_temperature: 0.6921549410965523
+    border_count: 240
+  
+  LightGBM:
+    n_estimators: 154
+    max_depth: 27
+    learning_rate: 0.22234435854395157
+    subsample: 0.7592213724048168
+    min_child_weight: 20
+    min_split_gain: 0.004604680609280751
+    reg_lambda: 97.81002379097947
+    n_jobs: -1

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Swiggy Delivery Time Prediction</title>
+</head>
+<body>
+    <h2>Enter Delivery Information</h2>
+    <form method="post" action="/predict">
+        <label>ID:</label><br>
+        <input name="ID" value="0x4607"><br><br>
+
+        <label>Delivery_person_ID:</label><br>
+        <input name="Delivery_person_ID" value="INDORES13DEL02"><br><br>
+
+        <label>Delivery_person_Age:</label><br>
+        <input name="Delivery_person_Age" value="37"><br><br>
+
+        <label>Delivery_person_Ratings:</label><br>
+        <input name="Delivery_person_Ratings" value="4.9"><br><br>
+
+        <label>Restaurant_latitude:</label><br>
+        <input name="Restaurant_latitude" value="22.745049" type="number" step="any"><br><br>
+
+        <label>Restaurant_longitude:</label><br>
+        <input name="Restaurant_longitude" value="75.892471" type="number" step="any"><br><br>
+
+        <label>Delivery_location_latitude:</label><br>
+        <input name="Delivery_location_latitude" value="22.765049" type="number" step="any"><br><br>
+
+        <label>Delivery_location_longitude:</label><br>
+        <input name="Delivery_location_longitude" value="75.912471" type="number" step="any"><br><br>
+
+        <label>Order_Date:</label><br>
+        <input name="Order_Date" value="19-03-2022"><br><br>
+
+        <label>Time_Orderd:</label><br>
+        <input name="Time_Orderd" value="11:30:00"><br><br>
+
+        <label>Time_Order_picked:</label><br>
+        <input name="Time_Order_picked" value="11:45:00"><br><br>
+
+        <label>Weatherconditions:</label><br>
+        <input name="Weatherconditions" value="conditions Sunny"><br><br>
+
+        <label>Road_traffic_density:</label><br>
+        <input name="Road_traffic_density" value="High"><br><br>
+
+        <label>Vehicle_condition:</label><br>
+        <input name="Vehicle_condition" value="2" type="number"><br><br>
+
+        <label>Type_of_order:</label><br>
+        <input name="Type_of_order" value="Snack"><br><br>
+
+        <label>Type_of_vehicle:</label><br>
+        <input name="Type_of_vehicle" value="motorcycle"><br><br>
+
+        <label>multiple_deliveries:</label><br>
+        <input name="multiple_deliveries" value="0"><br><br>
+
+        <label>Festival:</label><br>
+        <input name="Festival" value="No"><br><br>
+
+        <label>City:</label><br>
+        <input name="City" value="Urban"><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <h3>Predicted Delivery Time: {{ prediction }} minutes</h3>
+    {% endif %}
+</body>
+</html>

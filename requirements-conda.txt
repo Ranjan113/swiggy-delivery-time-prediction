@@ -1,0 +1,8 @@
+# data libraries only (install with conda)
+numpy
+pandas
+scikit-learn
+matplotlib
+catboost
+lightgbm
+pyyaml
