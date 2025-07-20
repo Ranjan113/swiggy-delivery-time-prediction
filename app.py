@@ -218,6 +218,14 @@ except:
     preprocessor = None
     model_pipe = model
 
+# Model info for template compatibility
+model_info = {
+    "environment": "local",
+    "model_type": "ml",
+    "is_ml_model": True,
+    "model_display_name": "🤖 Advanced ML Model"
+}
+
 def clean_prediction_data(data: pd.DataFrame) -> pd.DataFrame:
     """
     Apply the same cleaning pipeline as the training data
@@ -256,11 +264,11 @@ input_fields = [
 
 @app.get("/", response_class=HTMLResponse)
 def read_home(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
+    return templates.TemplateResponse("home.html", {"request": request, "model_info": model_info})
 
 @app.get("/form-predict", response_class=HTMLResponse)
 def form_predict(request: Request):
-    return templates.TemplateResponse("form_predict.html", {"request": request, "fields": input_fields})
+    return templates.TemplateResponse("form_predict.html", {"request": request, "fields": input_fields, "model_info": model_info})
 
 @app.post("/predict", response_class=HTMLResponse)
 async def predict(
@@ -324,13 +332,16 @@ async def predict(
         return templates.TemplateResponse("form_predict.html", {
             "request": request,
             "fields": input_fields,
-            "error": str(e)
+            "error": str(e),
+            "model_info": model_info
         })
 
     return templates.TemplateResponse("form_predict.html", {
         "request": request,
         "fields": input_fields,
-        "prediction": prediction
+        "prediction": prediction,
+        "model_info": model_info,
+        "model_used": "🤖 Advanced ML Model (Original)"
     })
 
 # For Vercel deployment - FastAPI app is already ASGI compatible

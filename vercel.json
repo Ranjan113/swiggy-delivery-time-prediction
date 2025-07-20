@@ -2,14 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.py",
+      "src": "app_hybrid.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app.py"
+      "dest": "app_hybrid.py"
     }
-  ]
+  ],
+  "functions": {
+    "app_hybrid.py": {
+      "maxDuration": 30
+    }
+  }
 }

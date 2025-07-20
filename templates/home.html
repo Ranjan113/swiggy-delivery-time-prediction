@@ -69,10 +69,36 @@
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
             Predict your food delivery time with AI-powered precision. 
             Enter your order details and get accurate delivery estimates in seconds.
         </p>
+
+        <!-- Model Status Banner -->
+        {% if model_info %}
+        <div class="glass-effect rounded-2xl p-4 mb-12 max-w-2xl mx-auto">
+            <div class="flex items-center justify-center space-x-3 text-white">
+                <div class="flex items-center space-x-2">
+                    {% if model_info.get('is_ml_model', False) %}
+                        <i class="fas fa-robot text-blue-400"></i>
+                        <span class="font-medium">🤖 Advanced ML Model Active</span>
+                    {% else %}
+                        <i class="fas fa-bolt text-yellow-400"></i>
+                        <span class="font-medium">⚡ Lightweight Algorithm Active</span>
+                    {% endif %}
+                </div>
+                <div class="text-white/60 text-sm">
+                    {% if model_info.get('environment') == 'local' %}
+                        | 🖥️ Local Environment
+                    {% elif model_info.get('environment') == 'vercel' %}
+                        | ☁️ Cloud Deployment
+                    {% else %}
+                        | 🌐 Optimized Mode
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         <!-- Features -->
         <div class="grid md:grid-cols-3 gap-6 mb-12">
