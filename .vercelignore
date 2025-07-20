@@ -1,24 +1,42 @@
-# Exclude large model files from Vercel deployment
+# Exclude ALL model files and ML dependencies from Vercel deployment
 models/
 src/
 *.pkl
 *.joblib
+*.h5
+*.pt
+*.pth
 
-# Development files
+# Exclude ML-heavy Python files
+app.py
+model_loader.py
+
+# Python cache and environments
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 .env
 .venv/
 venv/
+env/
 
-# Original app files (keep hybrid)
-app.py
-app_lite.py
-model_loader.py
-
-# Git and other
+# Development and documentation
 .git/
 .gitignore
 README.md
 DEPLOYMENT_README.md
+*.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large dependency files (if any)
+node_modules/
