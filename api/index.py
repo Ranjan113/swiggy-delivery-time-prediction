@@ -1,5 +1,6 @@
 """
 Vercel API Entry Point - Lightweight Prediction App
+Updated: July 20, 2025
 """
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
