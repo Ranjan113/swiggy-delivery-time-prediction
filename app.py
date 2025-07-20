@@ -333,5 +333,10 @@ async def predict(
         "prediction": prediction
     })
 
+# For Vercel deployment - FastAPI app is already ASGI compatible
+# No handler needed, Vercel will use the app directly
+
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
