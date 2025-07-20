@@ -344,8 +344,8 @@ async def predict(
         "model_used": "🤖 Advanced ML Model (Original)"
     })
 
-# For Vercel deployment - FastAPI app is already ASGI compatible
-# No handler needed, Vercel will use the app directly
+# FastAPI app is already ASGI compatible
+# No handler needed for most deployments
 
 if __name__ == "__main__":
     import os

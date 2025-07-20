@@ -88,13 +88,7 @@
                     {% endif %}
                 </div>
                 <div class="text-white/60 text-sm">
-                    {% if model_info.get('environment') == 'local' %}
-                        | 🖥️ Local Environment
-                    {% elif model_info.get('environment') == 'vercel' %}
-                        | ☁️ Cloud Deployment
-                    {% else %}
-                        | 🌐 Optimized Mode
-                    {% endif %}
+                    | 🖥️ Local Environment
                 </div>
             </div>
         </div>

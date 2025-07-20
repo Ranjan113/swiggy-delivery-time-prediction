@@ -305,13 +305,7 @@
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-600">Environment</span>
                                 <span class="font-semibold text-green-600">
-                                    {% if model_info and model_info.get('environment') == 'local' %}
-                                        🖥️ Local Dev
-                                    {% elif model_info and model_info.get('environment') == 'vercel' %}
-                                        ☁️ Cloud
-                                    {% else %}
-                                        ⚡ Lightweight
-                                    {% endif %}
+                                    🖥️ Local Dev
                                 </span>
                             </div>
                             <div class="flex justify-between items-center">
