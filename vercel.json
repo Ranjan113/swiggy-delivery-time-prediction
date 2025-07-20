@@ -2,19 +2,37 @@
   "version": 2,
   "builds": [
     {
-      "src": "app_hybrid.py",
-      "use": "@vercel/python"
+      "src": "app_vercel.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app_hybrid.py"
+      "dest": "app_vercel.py"
     }
   ],
   "functions": {
-    "app_hybrid.py": {
-      "maxDuration": 30
+    "app_vercel.py": {
+      "maxDuration": 10
     }
-  }
+  },
+  "outputDirectory": "dist",
+  "excludeFiles": [
+    "models/**",
+    "*.pkl",
+    "*.joblib",
+    "notebooks/**",
+    "docs/**",
+    "__pycache__/**",
+    ".git/**",
+    ".venv/**",
+    "*.md",
+    "Makefile",
+    "test_*",
+    "*.egg-info/**"
+  ]
 }

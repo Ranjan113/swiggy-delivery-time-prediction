@@ -1,11 +1,16 @@
 # Exclude ALL model files and ML dependencies from Vercel deployment
 models/
-src/
 *.pkl
 *.joblib
 *.h5
 *.pt
 *.pth
+
+# Include only minimal src files needed for lightweight prediction
+src/data/__pycache__/
+src/features/
+src/models/
+src/visualization/
 
 # Exclude ML-heavy Python files
 app.py
