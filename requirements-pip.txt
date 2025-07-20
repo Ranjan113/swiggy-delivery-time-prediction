@@ -8,3 +8,10 @@ jinja2
 
 # development mode
 -e .
+# numpy
+# pandas
+# scikit-learn
+# matplotlib
+# catboost
+# lightgbm
+# pyyaml
