@@ -180,17 +180,69 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 import pandas as pd
 import uvicorn
 import pickle
-from src.data.data_cleaning import perform_data_cleaning  # Adjust if necessary
+import joblib
+from src.data.data_cleaning import (
+    change_column_names, 
+    data_cleaning, 
+    clean_lat_long, 
+    calculate_haversine_distance, 
+    create_distance_type, 
+    drop_columns,
+    columns_to_drop
+)
 
-app = FastAPI()
+app = FastAPI(title="Swiggy Delivery Time Predictor", description="AI-powered delivery time prediction")
 templates = Jinja2Templates(directory="templates")
 
-# Load the full model pipeline (includes preprocessing inside)
+# Mount static files (create static directory if needed)
+try:
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+except:
+    pass  # Static directory might not exist
+
+# Load the model and preprocessor separately
 with open("models/model.pkl", "rb") as f:
-    model_pipe = pickle.load(f)
+    model = pickle.load(f)
+
+# Try to load the preprocessor
+try:
+    import joblib
+    preprocessor = joblib.load("models/preprocessor.joblib")
+    print("Loaded separate preprocessor")
+except:
+    print("No separate preprocessor found, using model pipeline")
+    preprocessor = None
+    model_pipe = model
+
+def clean_prediction_data(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Apply the same cleaning pipeline as the training data
+    but without the target variable (time_taken) since we're predicting it
+    """
+    # Add a dummy time_taken column for the cleaning pipeline
+    data_with_dummy_target = data.copy()
+    data_with_dummy_target['Time_taken(min)'] = '20(min) '  # Dummy value in correct format
+    
+    # Apply the cleaning pipeline
+    cleaned_data = (
+        data_with_dummy_target
+        .pipe(change_column_names)
+        .pipe(data_cleaning)
+        .pipe(clean_lat_long)
+        .pipe(calculate_haversine_distance)
+        .pipe(create_distance_type)
+        .pipe(drop_columns, columns=columns_to_drop)
+    )
+    
+    # Remove the dummy target column if it still exists
+    if 'time_taken' in cleaned_data.columns:
+        cleaned_data = cleaned_data.drop(columns=['time_taken'])
+    
+    return cleaned_data
 
 input_fields = [
     "ID", "Delivery_person_ID", "Delivery_person_Age", "Delivery_person_Ratings",
@@ -258,8 +310,16 @@ async def predict(
     df = pd.DataFrame([data])
 
     try:
-        cleaned = perform_data_cleaning(df)
-        prediction = model_pipe.predict(cleaned)[0]
+        cleaned = clean_prediction_data(df)
+        
+        if preprocessor is not None:
+            # Use separate preprocessor and model
+            preprocessed = preprocessor.transform(cleaned)
+            prediction = model.predict(preprocessed)[0]
+        else:
+            # Use full pipeline
+            prediction = model_pipe.predict(cleaned)[0]
+            
     except Exception as e:
         return templates.TemplateResponse("form_predict.html", {
             "request": request,

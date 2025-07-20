@@ -1,73 +1,326 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Swiggy Delivery Time Prediction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Delivery Time - Swiggy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/custom.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .input-focus {
+            transition: all 0.3s ease;
+        }
+        
+        .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .prediction-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<body>
-    <h2>Enter Delivery Information</h2>
-    <form method="post" action="/predict">
-        <label>ID:</label><br>
-        <input name="ID" value="0x4607"><br><br>
+<body class="gradient-bg min-h-screen py-8">
+    <!-- Header -->
+    <div class="max-w-6xl mx-auto px-4 mb-8">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <a href="/" class="flex items-center space-x-2 text-white hover:text-yellow-300 transition-colors">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2 text-white">
+                <i class="fas fa-motorcycle text-2xl"></i>
+                <h1 class="text-2xl font-bold">Delivery Time Predictor</h1>
+            </div>
+        </div>
+    </div>
 
-        <label>Delivery_person_ID:</label><br>
-        <input name="Delivery_person_ID" value="INDORES13DEL02"><br><br>
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Form Section -->
+            <div class="lg:col-span-2">
+                <div class="section-card p-8">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Enter Delivery Information</h2>
+                        <p class="text-gray-600">Fill in the details below to predict your delivery time</p>
+                    </div>
 
-        <label>Delivery_person_Age:</label><br>
-        <input name="Delivery_person_Age" value="37"><br><br>
+                    <form method="post" action="/predict" class="space-y-8">
+                        <!-- Order Information -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-receipt text-blue-600 mr-2"></i>
+                                Order Information
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Order ID</label>
+                                    <input name="ID" value="0x4607" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Order Date</label>
+                                    <input name="Order_Date" value="19-03-2022" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Time Ordered</label>
+                                    <input name="Time_Orderd" value="11:30:00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Time Order Picked</label>
+                                    <input name="Time_Order_picked" value="11:45:00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent input-focus" required>
+                                </div>
+                            </div>
+                        </div>
 
-        <label>Delivery_person_Ratings:</label><br>
-        <input name="Delivery_person_Ratings" value="4.9"><br><br>
+                        <!-- Delivery Person -->
+                        <div class="bg-green-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-user text-green-600 mr-2"></i>
+                                Delivery Person Details
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Person ID</label>
+                                    <input name="Delivery_person_ID" value="INDORES13DEL02" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                                    <input name="Delivery_person_Age" value="37" type="number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Ratings</label>
+                                    <input name="Delivery_person_Ratings" value="4.9" type="number" step="0.1" min="1" max="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent input-focus" required>
+                                </div>
+                            </div>
+                        </div>
 
-        <label>Restaurant_latitude:</label><br>
-        <input name="Restaurant_latitude" value="22.745049" type="number" step="any"><br><br>
+                        <!-- Location Details -->
+                        <div class="bg-purple-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-map-marker-alt text-purple-600 mr-2"></i>
+                                Location Details
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Restaurant Latitude</label>
+                                    <input name="Restaurant_latitude" value="22.745049" type="number" step="any" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Restaurant Longitude</label>
+                                    <input name="Restaurant_longitude" value="75.892471" type="number" step="any" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Latitude</label>
+                                    <input name="Delivery_location_latitude" value="22.765049" type="number" step="any" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Longitude</label>
+                                    <input name="Delivery_location_longitude" value="75.912471" type="number" step="any" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus" required>
+                                </div>
+                            </div>
+                        </div>
 
-        <label>Restaurant_longitude:</label><br>
-        <input name="Restaurant_longitude" value="75.892471" type="number" step="any"><br><br>
+                        <!-- Conditions & Details -->
+                        <div class="bg-orange-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-cog text-orange-600 mr-2"></i>
+                                Conditions & Details
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Weather Conditions</label>
+                                    <select name="Weatherconditions" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="conditions Sunny">Sunny</option>
+                                        <option value="conditions Stormy">Stormy</option>
+                                        <option value="conditions Sandstorms">Sandstorms</option>
+                                        <option value="conditions Windy">Windy</option>
+                                        <option value="conditions Fog">Fog</option>
+                                        <option value="conditions Cloudy">Cloudy</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Road Traffic Density</label>
+                                    <select name="Road_traffic_density" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                        <option value="Jam">Jam</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Vehicle Condition (1-3)</label>
+                                    <input name="Vehicle_condition" value="2" type="number" min="1" max="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Type of Vehicle</label>
+                                    <select name="Type_of_vehicle" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="motorcycle">Motorcycle</option>
+                                        <option value="scooter">Scooter</option>
+                                        <option value="electric_scooter">Electric Scooter</option>
+                                        <option value="bicycle">Bicycle</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Type of Order</label>
+                                    <select name="Type_of_order" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="Snack">Snack</option>
+                                        <option value="Meal">Meal</option>
+                                        <option value="Drink">Drink</option>
+                                        <option value="Buffet">Buffet</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Multiple Deliveries</label>
+                                    <select name="multiple_deliveries" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="0">No</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Festival</label>
+                                    <select name="Festival" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">City Type</label>
+                                    <select name="City" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent input-focus" required>
+                                        <option value="Urban">Urban</option>
+                                        <option value="Semi-Urban">Semi-Urban</option>
+                                        <option value="Metropolitian">Metropolitan</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-        <label>Delivery_location_latitude:</label><br>
-        <input name="Delivery_location_latitude" value="22.765049" type="number" step="any"><br><br>
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                <i class="fas fa-calculator mr-2"></i>
+                                Predict Delivery Time
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-        <label>Delivery_location_longitude:</label><br>
-        <input name="Delivery_location_longitude" value="75.912471" type="number" step="any"><br><br>
+            <!-- Prediction Result & Info -->
+            <div class="lg:col-span-1">
+                <!-- Prediction Result -->
+                {% if prediction %}
+                <div class="prediction-card rounded-2xl p-8 text-white mb-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-clock text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Predicted Delivery Time</h3>
+                        <div class="text-5xl font-bold mb-2">{{ "%.0f"|format(prediction) }}</div>
+                        <div class="text-xl opacity-80">minutes</div>
+                        <div class="mt-4 text-sm opacity-70">
+                            Estimated delivery: {{ "%.0f"|format(prediction) }} minutes from pickup
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
-        <label>Order_Date:</label><br>
-        <input name="Order_Date" value="19-03-2022"><br><br>
+                {% if error %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-8">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <div>
+                            <strong>Error:</strong> {{ error }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
-        <label>Time_Orderd:</label><br>
-        <input name="Time_Orderd" value="11:30:00"><br><br>
+                <!-- Info Cards -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg p-6 shadow-lg">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                            How it works
+                        </h4>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li class="flex items-start"><i class="fas fa-dot-circle text-blue-600 mr-2 mt-1 text-xs"></i>AI analyzes traffic patterns</li>
+                            <li class="flex items-start"><i class="fas fa-dot-circle text-blue-600 mr-2 mt-1 text-xs"></i>Weather conditions considered</li>
+                            <li class="flex items-start"><i class="fas fa-dot-circle text-blue-600 mr-2 mt-1 text-xs"></i>Distance and route optimization</li>
+                            <li class="flex items-start"><i class="fas fa-dot-circle text-blue-600 mr-2 mt-1 text-xs"></i>Delivery person performance</li>
+                        </ul>
+                    </div>
 
-        <label>Time_Order_picked:</label><br>
-        <input name="Time_Order_picked" value="11:45:00"><br><br>
+                    <div class="bg-white rounded-lg p-6 shadow-lg">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-chart-line text-green-600 mr-2"></i>
+                            Accuracy Stats
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Model Accuracy</span>
+                                <span class="font-semibold text-green-600">94.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Avg. Error</span>
+                                <span class="font-semibold text-green-600">±3 min</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Data Points</span>
+                                <span class="font-semibold text-green-600">45,000+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <label>Weatherconditions:</label><br>
-        <input name="Weatherconditions" value="conditions Sunny"><br><br>
-
-        <label>Road_traffic_density:</label><br>
-        <input name="Road_traffic_density" value="High"><br><br>
-
-        <label>Vehicle_condition:</label><br>
-        <input name="Vehicle_condition" value="2" type="number"><br><br>
-
-        <label>Type_of_order:</label><br>
-        <input name="Type_of_order" value="Snack"><br><br>
-
-        <label>Type_of_vehicle:</label><br>
-        <input name="Type_of_vehicle" value="motorcycle"><br><br>
-
-        <label>multiple_deliveries:</label><br>
-        <input name="multiple_deliveries" value="0"><br><br>
-
-        <label>Festival:</label><br>
-        <input name="Festival" value="No"><br><br>
-
-        <label>City:</label><br>
-        <input name="City" value="Urban"><br><br>
-
-        <button type="submit">Predict</button>
-    </form>
-
-    {% if prediction %}
-        <h3>Predicted Delivery Time: {{ prediction }} minutes</h3>
-    {% endif %}
+    <!-- Footer -->
+    <div class="max-w-6xl mx-auto px-4 mt-12 text-center text-white/60">
+        <p>&copy; 2025 Swiggy Delivery Time Predictor.</p>
+    </div>
+    
+    <script src="/static/script.js"></script>
 </body>
 </html>

@@ -1,13 +1,220 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swiggy Delivery Time Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/custom.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-scale {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
 </head>
-<body>
-    <h2>Welcome to the Swiggy Delivery Time Prediction App!</h2>
-    <p>Click the button below to enter your order details and predict delivery time.</p>
-    <form action="/form-predict">
-        <button type="submit">Go to Prediction Form</button>
-    </form>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-4 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+        <div class="absolute top-20 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-2000"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-4000"></div>
+    </div>
+
+    <!-- Main container -->
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <!-- Logo/Icon -->
+        <div class="floating-animation mb-8">
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-6">
+                <i class="fas fa-motorcycle text-4xl text-indigo-600"></i>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+            Swiggy
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+                Delivery
+            </span>
+            <br>Time Predictor
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed">
+            Predict your food delivery time with AI-powered precision. 
+            Enter your order details and get accurate delivery estimates in seconds.
+        </p>
+
+        <!-- Features -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-effect rounded-2xl p-6 hover-scale">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-brain text-white text-xl"></i>
+                </div>
+                <h3 class="text-white font-semibold mb-2">AI-Powered</h3>
+                <p class="text-white/70 text-sm">Advanced machine learning algorithms for accurate predictions</p>
+            </div>
+            
+            <div class="glass-effect rounded-2xl p-6 hover-scale">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clock text-white text-xl"></i>
+                </div>
+                <h3 class="text-white font-semibold mb-2">Real-time</h3>
+                <p class="text-white/70 text-sm">Instant predictions based on current traffic and weather</p>
+            </div>
+            
+            <div class="glass-effect rounded-2xl p-6 hover-scale">
+                <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-chart-line text-white text-xl"></i>
+                </div>
+                <h3 class="text-white font-semibold mb-2">Accurate</h3>
+                <p class="text-white/70 text-sm">Trained on thousands of delivery data points</p>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <form action="/form-predict" class="inline-block">
+            <button type="submit" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-orange-500 to-red-600 rounded-full hover:from-orange-600 hover:to-red-700 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <i class="fas fa-rocket mr-3 group-hover:translate-x-1 transition-transform duration-300"></i>
+                Start Prediction
+                <div class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            </button>
+        </form>
+
+        <!-- Contact Us Section -->
+        <div class="mt-20 mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Contact Us</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="glass-effect rounded-2xl p-6 hover-scale text-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Email</h3>
+                    <p class="text-white/70 text-sm">contact@swiggypredictor.com</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-scale text-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-phone text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Phone</h3>
+                    <p class="text-white/70 text-sm">+91 98765 43210</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-6 hover-scale text-center">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-white font-semibold mb-2">Address</h3>
+                    <p class="text-white/70 text-sm">Vellore, Tamil Nadu, India</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Created By Section -->
+        <div class="mt-16 mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Created By</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Team Member 1 -->
+                <div class="glass-effect rounded-2xl p-8 hover-scale text-center">
+                    <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <!-- Placeholder for profile picture -->
+                        <img src="/static/imgs/AYUSHPADHY.png" alt="Team Member 1" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="text-white font-semibold text-lg mb-2">Ranjan Mittal</h3>
+                    <p class="text-white/70 text-sm mb-3">Lead Developer - ML</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="https://www.linkedin.com/in/ranjan-mittal-938385274" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="https://github.com/Ranjan113" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="glass-effect rounded-2xl p-8 hover-scale text-center">
+                    <div class="w-24 h-24 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <!-- Placeholder for profile picture -->
+                        <img src="/static/imgs/AYUSHPADHY.png" alt="Team Member 2" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="text-white font-semibold text-lg mb-2">Ayush Padhy</h3>
+                    <p class="text-white/70 text-sm mb-3">Full Stack Developer</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="https://www.linkedin.com/in/ayushpadhy" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="https://github.com/RockingAyush04  " class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="glass-effect rounded-2xl p-8 hover-scale text-center">
+                    <div class="w-24 h-24 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <!-- Placeholder for profile picture -->
+                        <img src="https://via.placeholder.com/96x96/EF4444/FFFFFF?text=UI" alt="Team Member 3" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="text-white font-semibold text-lg mb-2">Varundeep Singh</h3>
+                    <p class="text-white/70 text-sm mb-3">Frontend Developer</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="#" class="text-white/60 hover:text-white transition-colors">
+                            <i class="fab fa-dribbble text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-16 text-white/60 text-sm">
+            <p>Powered by FastAPI</p>
+        </div>
+    </div>
+    
+    <script src="/static/script.js"></script>
 </body>
 </html>
