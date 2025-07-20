@@ -2,41 +2,41 @@
 echo 🚀 Deploying Swiggy Delivery Time Predictor to Vercel
 echo.
 echo 📋 Deployment Configuration:
-echo    - App: app_vercel.py (Hybrid Model System)
-echo    - Requirements: requirements_vercel.txt (Minimal dependencies)
+echo    - App: api/index.py (Lightweight Algorithm)
+echo    - Requirements: requirements.txt (Minimal dependencies)
 echo    - Models: Excluded from deployment (uses lightweight algorithm)
 echo    - Size: Under 50MB limit
 echo.
 
 echo 🔧 Checking files...
-if exist "app_vercel.py" (
-    echo ✅ app_vercel.py found
+if exist "api\index.py" (
+    echo ✅ api/index.py found
 ) else (
-    echo ❌ app_vercel.py not found
+    echo ❌ api/index.py not found
     pause
     exit /b 1
 )
 
-if exist "requirements_vercel.txt" (
-    echo ✅ requirements_vercel.txt found
+if exist "requirements.txt" (
+    echo ✅ requirements.txt found
 ) else (
-    echo ❌ requirements_vercel.txt not found
-    pause
-    exit /b 1
-)
-
-if exist "hybrid_model.py" (
-    echo ✅ hybrid_model.py found
-) else (
-    echo ❌ hybrid_model.py not found
+    echo ❌ requirements.txt not found
     pause
     exit /b 1
 )
 
 if exist "templates" (
-    echo ✅ templates folder found
+    echo ✅ templates directory found
 ) else (
-    echo ❌ templates folder not found
+    echo ❌ templates directory not found
+    pause
+    exit /b 1
+)
+
+if exist "vercel.json" (
+    echo ✅ vercel.json found
+) else (
+    echo ❌ vercel.json not found
     pause
     exit /b 1
 )

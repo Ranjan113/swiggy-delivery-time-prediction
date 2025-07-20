@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "app_vercel.py",
+      "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "50mb"
@@ -12,12 +12,12 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app_vercel.py"
+      "dest": "api/index.py"
     }
   ],
   "functions": {
-    "app_vercel.py": {
-      "maxDuration": 10
+    "api/index.py": {
+      "maxDuration": 30
     }
   }
 }
