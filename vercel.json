@@ -19,20 +19,5 @@
     "app_vercel.py": {
       "maxDuration": 10
     }
-  },
-  "outputDirectory": "dist",
-  "excludeFiles": [
-    "models/**",
-    "*.pkl",
-    "*.joblib",
-    "notebooks/**",
-    "docs/**",
-    "__pycache__/**",
-    ".git/**",
-    ".venv/**",
-    "*.md",
-    "Makefile",
-    "test_*",
-    "*.egg-info/**"
-  ]
+  }
 }
